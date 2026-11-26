@@ -31,8 +31,6 @@ Em vez de controlar a progressão por contadores isolados, todas as regras de co
 | `A` / `D` ou `←` / `→` | Mover para esquerda / direita |
 | `Espaço`, `W` ou `↑` | Pular |
 | `R` | Reiniciar a fase atual |
-| `1` | Ir direto para a Fase 1 |
-| `2` | Ir direto para a Fase 2 |
 
 ---
 
