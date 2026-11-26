@@ -102,30 +102,4 @@ O autômato formal $M = (Q, \Sigma, \Gamma, \delta, q_0, Z, F)$ está modelado n
 | `mmmvgccpeseeeb` | **Rejeitada** | Escudo coletado antes das espadas (não ficou no topo da pilha) |
 | `mmmvgccpeesb` | **Rejeitada** | Faltou 1 espada abaixo do Escudo |
 
----
-
-## Estrutura do Projeto
-
-```text
-.
-├── index.html                 # Estrutura da página e HUD do Autômato de Pilha
-├── style.css                  # Estilos da tela do jogo e da pilha visual
-├── game.js                    # Lógica completa (KAPLAY + Fases 1 e 2 + PDA)
-├── jogo-pda-completo.jff      # Diagrama formal do PDA para abrir no JFLAP
-├── README.md                  # Documentação do projeto
-└── assets/                    # Sprites e fundos das fases
-    ├── player1.png
-    ├── comerciante1.png
-    ├── comerciante.png
-    ├── boss.png
-    ├── moeda.png
-    ├── diamante.png
-    ├── chave.png
-    ├── espada.png
-    ├── escudo.png
-    ├── espinho.png
-    ├── portao-fechado.png
-    ├── portao-aberto.png
-    ├── plataforma.webp
-    ├── fundo-fase1.png
-    └── fundo-fase2.png
+-----
