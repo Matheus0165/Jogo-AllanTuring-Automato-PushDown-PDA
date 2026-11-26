@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogo PDA - Autômato de Pilha</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="layout">
+    <section class="stage">
+      <div id="game-container"></div>
+      <div class="controls-bar">
+        <span><strong>Mover:</strong> A / D ou Setas</span>
+        <span><strong>Pular:</strong> Espaço ou W</span>
+        <span><strong>Reiniciar:</strong> R</span>
+        <span><strong>Fases:</strong> 1 / 2</span>
+      </div>
+    </section>
+
+    <aside class="hud">
+      <h1>Autômato de Pilha</h1>
+
+      <div class="panel">
+        <span class="label">Estado Atual</span>
+        <strong id="estado-atual">q0: Coletar Moedas</strong>
+      </div>
+
+      <div class="panel">
+        <span class="label">Pilha (Topo em cima)</span>
+        <div id="pilha-visual" class="stack-box"></div>
+      </div>
+
+      <div class="panel">
+        <span class="label">Última Transição</span>
+        <p id="status-msg">Colete 3 moedas e depois 2 chaves.</p>
+      </div>
+    </aside>
+  </main>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html> 
