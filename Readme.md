@@ -84,6 +84,9 @@ O autômato formal $M = (Q, \Sigma, \Gamma, \delta, q_0, Z, F)$ está modelado n
 
 ## Validação no JFLAP
 
+
+![Jflap-projeto](./automato.png)
+
 1. Abra o arquivo **`jogo-pda-completo.jff`** no JFLAP (`File → Open`).
 2. Vá em **`Input → Multiple Run`** e selecione **Accept by Final State**.
 3. Teste as cadeias abaixo:
