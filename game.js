@@ -997,7 +997,7 @@ k.scene("fase2", () => {
         "Boss, Escudo ; Escudo salvou do Hit-Kill, mas faltam as 3 Espadas! (Escudo reapareceu)"
       );
 
-      k.wait(1.2, () => {
+      k.wait(2, () => {
         invulneravel = false;
       });
       return;
@@ -1032,7 +1032,7 @@ k.scene("fase2", () => {
       historicoSpawns.pop();
       estadoAtual = passo.estado;
       atualizarHUD(estadoAtual, pilha, passo.msg);
-      await k.wait(0.45);
+      await k.wait(1.7);
     }
 
     // Golpe final com a 3ª Espada -> resta apenas Base
