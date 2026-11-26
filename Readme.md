@@ -2,8 +2,7 @@
 
 Jogo de plataforma 2D desenvolvido em **JavaScript** com a biblioteca **KAPLAY**, projetado para demonstrar na prática o funcionamento de um **Autômato de Pilha (*Pushdown Automaton* — PDA)** com estrutura **LIFO** (*Last In, First Out*), acompanhado de HUD em tempo real e modelagem formal completa no **JFLAP**.
 
-> **Jogar online (GitHub Pages):** `https://matheus0165.github.io/Jogo-AllanTuring-Automato-PushDown-PDA/
-Filter
+> **Jogar online (GitHub Pages):** `https://matheus0165.github.io/Jogo-AllanTuring-Automato-PushDown-PDA`
 
 ---
 
