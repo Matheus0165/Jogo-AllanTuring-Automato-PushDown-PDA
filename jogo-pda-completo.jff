@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<structure>
+  <type>pda</type>
+  <automaton>
+    <!-- FASE 1: Moedas, Comerciante, Diamante, Chaves e Portão -->
+    <state id="0" name="q0">
+      <x>120.0</x>
+      <y>160.0</y>
+      <label>Coletar Moedas</label>
+      <initial/>
+    </state>
+    <state id="1" name="q1">
+      <x>320.0</x>
+      <y>160.0</y>
+      <label>Comerciante (M1)</label>
+    </state>
+    <state id="2" name="q2">
+      <x>520.0</x>
+      <y>160.0</y>
+      <label>Comerciante (M2)</label>
+    </state>
+    <state id="3" name="q3">
+      <x>720.0</x>
+      <y>160.0</y>
+      <label>Pegar Diamante</label>
+    </state>
+    <state id="4" name="q4">
+      <x>940.0</x>
+      <y>160.0</y>
+      <label>Coletar Chaves</label>
+    </state>
+    <state id="5" name="q5">
+      <x>720.0</x>
+      <y>340.0</y>
+      <label>Portão (Chave 1)</label>
+    </state>
+    <state id="6" name="q6">
+      <x>320.0</x>
+      <y>340.0</y>
+      <label>Portão (Chave 2)</label>
+    </state>
+    <state id="7" name="qf">
+      <x>120.0</x>
+      <y>560.0</y>
+      <label>Fim Fase 1</label>
+    </state>
+
+    <!-- FASE 2: Espadas, Escudo no Topo e Boss Final -->
+    <state id="8" name="q7">
+      <x>340.0</x>
+      <y>560.0</y>
+      <label>F2: Coletar Armas</label>
+    </state>
+    <state id="9" name="q8">
+      <x>560.0</x>
+      <y>560.0</y>
+      <label>Escudo Bloqueia</label>
+    </state>
+    <state id="10" name="q9">
+      <x>740.0</x>
+      <y>560.0</y>
+      <label>Golpe Espada 1</label>
+    </state>
+    <state id="11" name="q10">
+      <x>920.0</x>
+      <y>560.0</y>
+      <label>Golpe Espada 2</label>
+    </state>
+    <state id="12" name="q11">
+      <x>1100.0</x>
+      <y>560.0</y>
+      <label>Golpe Espada 3</label>
+    </state>
+    <state id="13" name="qf2">
+      <x>1280.0</x>
+      <y>560.0</y>
+      <label>Vitória (Boss)</label>
+      <final/>
+    </state>
+
+    <!-- Estado auxiliar da Fase 2: esvaziarPilha() ao levar dano ou Hit-Kill sem Escudo -->
+    <state id="14" name="q_reset">
+      <x>450.0</x>
+      <y>760.0</y>
+      <label>Limpar Pilha</label>
+    </state>
+
+    <!-- ==================== TRANSIÇÕES FASE 1 ==================== -->
+    <!-- q0: coletar moedas e dano nos espinhos -->
+    <transition>
+      <from>0</from>
+      <to>0</to>
+      <read>m</read>
+      <pop>Z</pop>
+      <push>MZ</push>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>0</to>
+      <read>m</read>
+      <pop>M</pop>
+      <push>MM</push>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>0</to>
+      <read>d</read>
+      <pop>M</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>0</to>
+      <read>d</read>
+      <pop>Z</pop>
+      <push>Z</push>
+    </transition>
+
+    <!-- q0 -> q3: Comerciante (v) recolhe pelo menos 3 moedas -->
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>v</read>
+      <pop>M</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>2</to>
+      <read/>
+      <pop>M</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>3</to>
+      <read/>
+      <pop>M</pop>
+      <push/>
+    </transition>
+
+    <!-- q3: recolhe moedas extras (>3), protege Base e aguarda Diamante (g) -->
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read/>
+      <pop>M</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read>d</read>
+      <pop>Z</pop>
+      <push>Z</push>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>4</to>
+      <read>g</read>
+      <pop>Z</pop>
+      <push>DZ</push>
+    </transition>
+
+    <!-- q4: coletar chaves com Diamante protegido -->
+    <transition>
+      <from>4</from>
+      <to>4</to>
+      <read>c</read>
+      <pop>D</pop>
+      <push>CD</push>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>4</to>
+      <read>c</read>
+      <pop>C</pop>
+      <push>CC</push>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>4</to>
+      <read>d</read>
+      <pop>C</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>4</to>
+      <read>d</read>
+      <pop>D</pop>
+      <push>D</push>
+    </transition>
+
+    <!-- q4 -> qf: Portão (p) consome 2 Chaves + 1 Diamante -->
+    <transition>
+      <from>4</from>
+      <to>5</to>
+      <read>p</read>
+      <pop>C</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>5</from>
+      <to>6</to>
+      <read/>
+      <pop>C</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>6</from>
+      <to>7</to>
+      <read/>
+      <pop>D</pop>
+      <push/>
+    </transition>
+
+    <!-- Transição automática da Fase 1 (qf) para a Fase 2 (q7) -->
+    <transition>
+      <from>7</from>
+      <to>8</to>
+      <read/>
+      <pop>Z</pop>
+      <push>Z</push>
+    </transition>
+
+    <!-- ==================== TRANSIÇÕES FASE 2 ==================== -->
+    <!-- q7: coletar Espadas (e) e Escudo (s) em qualquer ordem -->
+    <transition>
+      <from>8</from>
+      <to>8</to>
+      <read>e</read>
+      <pop>Z</pop>
+      <push>EZ</push>
+    </transition>
+    <transition>
+      <from>8</from>
+      <to>8</to>
+      <read>e</read>
+      <pop>E</pop>
+      <push>EE</push>
+    </transition>
+    <transition>
+      <from>8</from>
+      <to>8</to>
+      <read>e</read>
+      <pop>S</pop>
+      <push>ES</push>
+    </transition>
+    <transition>
+      <from>8</from>
+      <to>8</to>
+      <read>s</read>
+      <pop>Z</pop>
+      <push>SZ</push>
+    </transition>
+    <transition>
+      <from>8</from>
+      <to>8</to>
+      <read>s</read>
+      <pop>E</pop>
+      <push>SE</push>
+    </transition>
+
+    <!-- q7: dano em espinho (d) e contato com Boss (b) -->
+    <transition>
+      <from>8</from>
+      <to>8</to>
+      <read>d</read>
+      <pop>S</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>8</from>
+      <to>8</to>
+      <read>d</read>
+      <pop>Z</pop>
+      <push>Z</push>
+    </transition>
+    <transition>
+      <from>8</from>
+      <to>8</to>
+      <read>b</read>
+      <pop>Z</pop>
+      <push>Z</push>
+    </transition>
+    <!-- Boss com Escudo no topo mas sem 3 Espadas: Escudo absorve o Hit-Kill e continua em q7 -->
+    <transition>
+      <from>8</from>
+      <to>8</to>
+      <read>b</read>
+      <pop>S</pop>
+      <push/>
+    </transition>
+
+    <!-- q7 -> q_reset: dano ou Boss sem Escudo no topo esvazia a pilha toda -->
+    <transition>
+      <from>8</from>
+      <to>14</to>
+      <read>d</read>
+      <pop>E</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>8</from>
+      <to>14</to>
+      <read>b</read>
+      <pop>E</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>14</from>
+      <to>14</to>
+      <read/>
+      <pop>E</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>14</from>
+      <to>14</to>
+      <read/>
+      <pop>S</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>14</from>
+      <to>8</to>
+      <read/>
+      <pop>Z</pop>
+      <push>Z</push>
+    </transition>
+
+    <!-- q7 -> qf2: Boss (b) com Escudo no topo + exatamente 3 Espadas abaixo -->
+    <transition>
+      <from>8</from>
+      <to>9</to>
+      <read>b</read>
+      <pop>S</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>9</from>
+      <to>10</to>
+      <read/>
+      <pop>E</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>10</from>
+      <to>11</to>
+      <read/>
+      <pop>E</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>11</from>
+      <to>12</to>
+      <read/>
+      <pop>E</pop>
+      <push/>
+    </transition>
+    <transition>
+      <from>12</from>
+      <to>13</to>
+      <read/>
+      <pop>Z</pop>
+      <push>Z</push>
+    </transition>
+  </automaton>
+</structure>
