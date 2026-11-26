@@ -34,7 +34,7 @@ k.loadSprite("comerciante-andando", "assets/comerciante1.png", {
 });
 k.loadSprite("comerciante-parado", "assets/comerciante.png");
 
-// Sprites da Fase 2 (salve as imagens na pasta assets/ com estes nomes)
+// Sprites da Fase 2
 k.loadSprite("boss", "assets/boss.png", {
   sliceX: 4,
   anims: {
@@ -45,7 +45,7 @@ k.loadSprite("boss", "assets/boss.png", {
 k.loadSprite("espada", "assets/espada.png");
 k.loadSprite("escudo", "assets/escudo.png");
 
-// Fundos das fases (salve as imagens em assets/ ou altere o caminho/extensão abaixo)
+// Fundos das fases
 const FUNDO_FASE1 = "assets/fundo-fase1.png";
 const FUNDO_FASE2 = "assets/fundo-fase2.png";
 
@@ -167,7 +167,7 @@ function atualizarHUD(estado, pilha, mensagem) {
   });
 }
 
-// Balão de diálogo limpo acima do personagem (evita cortar nas bordas)
+// Balão de diálogo acima do personagem
 async function mostrarBalao(alvo, texto, larguraMapa, duracao = 2.2) {
   const largura = Math.min(260, Math.max(150, texto.length * 6.8 + 24));
   const linhas = Math.ceil(texto.length / 28);
@@ -220,7 +220,7 @@ k.scene("fase1", () => {
     "Colete pelo menos 3 moedas e entregue ao Comerciante."
   );
 
-  // Mapa expandido (60 colunas x 18 linhas = 2400x720px)
+  // Mapa da Fase 1
   const mapa = [
     "                                                           ",
     "                                                           ",
@@ -306,7 +306,7 @@ k.scene("fase1", () => {
   const VELOCIDADE = 250;
   const PULO = 645;
 
-  // Patrulha do Comerciante (anda 1 bloco para a esquerda e volta)
+  // Patrulha do Comerciante
   const comerciante = level.get("comerciante")[0];
   if (comerciante) {
     const inicioX = comerciante.pos.x;
@@ -337,7 +337,7 @@ k.scene("fase1", () => {
     });
   }
 
-  // Câmera, limites do mapa, queda e animação das pernas do player
+  // Câmera, limites do mapa, queda e animação do player
   k.onUpdate(() => {
     if (player.pos.x < 25) player.pos.x = 25;
     if (player.pos.x > LARGURA_MAPA - 25) player.pos.x = LARGURA_MAPA - 25;
@@ -454,10 +454,8 @@ k.scene("fase1", () => {
 
     validando = true;
 
-    // 1. Fala do Player
     await mostrarBalao(player, "Somente tenho isso!", LARGURA_MAPA, 2.8);
 
-    // 2. 1º balão do Comerciante
     await mostrarBalao(
       npc,
       "Se quiser passar me de minhas moedas hahahaha o amor venceu!",
@@ -465,7 +463,7 @@ k.scene("fase1", () => {
       2.8
     );
 
-    // 3. Desempilha as moedas (q0 -> q3)
+    // Desempilha as moedas (q0 -> q3)
     const passosComerciante = [
       { estado: "q1", msg: "Comerciante, Moeda ; tira Moeda (q0 -> q1)" },
       { estado: "q2", msg: "Vazio, Moeda ; tira Moeda (q1 -> q2)" },
@@ -485,12 +483,10 @@ k.scene("fase1", () => {
       await k.wait(0.25);
     }
 
-    // 4. Comerciante para na pose estática fazendo o L
     comerciantePago = true;
     npc.use(k.sprite("comerciante-parado", { width: 75, height: 80 }));
     npc.flipX = false;
 
-    // 5. 2º balão do Comerciante
     await mostrarBalao(
       npc,
       "Te roubei, mas te entrego esse diamante !",
@@ -498,7 +494,7 @@ k.scene("fase1", () => {
       3.0
     );
 
-    // 6. Dropa o diamante na plataforma do comerciante
+    // Dropa o diamante na plataforma do comerciante
     if (!diamanteDropado) {
       diamanteDropado = true;
       const dropX = Math.min(npc.pos.x + 55, 180);
@@ -633,9 +629,6 @@ k.scene("fase1", () => {
   });
 });
 
-// ============================================================
-// FASE 2: PARKOUR + 3 ESPADAS + 1 ESCUDO NO TOPO + BOSS FINAL
-// ============================================================
 k.scene("fase2", () => {
   adicionarFundo("fundo-fase2", [15, 18, 36], 0.22);
 
@@ -652,8 +645,7 @@ k.scene("fase2", () => {
     "Fase 2: Colete 3 Espadas e pegue o Escudo POR ÚLTIMO (no topo da pilha) para enfrentar o Boss!"
   );
 
-  // Mapa 60x18 (2400x720px) com parkour nas laterais/topo e Arena do Boss no centro
-  // E = Espada (3) | S = Escudo (1) | B = Boss Final | ^ = Espinho | @ = Player
+  // Mapa da Fase 2: E = Espada | S = Escudo | B = Boss | ^ = Espinho | @ = Player
   const mapa = [
     "                                                            ",
     "                                                            ",
@@ -774,11 +766,11 @@ k.scene("fase2", () => {
   const VELOCIDADE = 250;
   const PULO = 645;
 
-  // Patrulha e animação do Boss Final no centro (anda ~3.75 quadrados virando para os dois lados)
+  // Patrulha e animação do Boss Final
   const boss = level.get("boss")[0];
   if (boss) {
     const centroX = boss.pos.x;
-    const RAIO_PATRULHA = 75; // 150px total (entre 3 e 4 quadrados de 40px)
+    const RAIO_PATRULHA = 75;
     const VEL_BOSS = 115;
     let direcao = 1;
 
@@ -907,7 +899,7 @@ k.scene("fase2", () => {
     );
   });
 
-  // Transição: Coletar Escudo -> Empilha Escudo (precisa ficar no TOPO/fim da pilha!)
+  // Transição: Coletar Escudo -> Empilha Escudo
   player.onCollide("escudo", (escudo) => {
     if (validando || bossDerrotado) return;
     const topo = pilha[pilha.length - 1];
@@ -964,7 +956,7 @@ k.scene("fase2", () => {
 
     const topo = pilha[pilha.length - 1];
 
-    // 1. Sem Escudo no topo (fim da pilha) = HIT KILL e perde tudo na pilha!
+    // Sem Escudo no topo = HIT KILL e esvazia a pilha
     if (topo !== "Escudo") {
       validando = true;
       esvaziarPilha();
@@ -983,7 +975,7 @@ k.scene("fase2", () => {
       return;
     }
 
-    // 2. Escudo está no topo, mas ainda não tem exatamente 3 Espadas abaixo
+    // Escudo no topo, mas sem as 3 Espadas abaixo
     const esperado = ["Base", "Espada", "Espada", "Espada", "Escudo"];
     const pilhaValida =
       pilha.length === esperado.length &&
@@ -1011,7 +1003,7 @@ k.scene("fase2", () => {
       return;
     }
 
-    // 3. Pilha válida: ["Base", "Espada", "Espada", "Espada", "Escudo"] -> Derrota o Boss!
+    // Pilha válida: ["Base", "Espada", "Espada", "Espada", "Escudo"] -> Derrota o Boss
     validando = true;
     await mostrarBalao(
       player,
