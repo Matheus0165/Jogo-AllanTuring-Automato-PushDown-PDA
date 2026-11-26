@@ -1,4 +1,4 @@
-# Jogo de Plataforma 2D — Autômato de Pilha (PDA)
+# Jogo de Plataforma 2D — Autômato de Pilha (PDA) Teste
 
 Jogo de plataforma 2D desenvolvido em **JavaScript** com a biblioteca **KAPLAY**, projetado para demonstrar na prática o funcionamento de um **Autômato de Pilha (*Pushdown Automaton* — PDA)** com estrutura **LIFO** (*Last In, First Out*), acompanhado de HUD em tempo real e modelagem formal completa no **JFLAP**.
 
